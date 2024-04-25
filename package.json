@@ -2,7 +2,7 @@
   "name": "typescriptproject",
   "private": true,
   "version": "0.1.0",
-  "homepage": "",
+  "homepage": "https://cappalpha.github.io/ToDo/",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
