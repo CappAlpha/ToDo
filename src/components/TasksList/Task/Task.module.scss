@@ -80,6 +80,21 @@
       fill: grey;
     }
   }
+
+  &:disabled {
+    svg {
+      fill: grey;
+    }
+
+    &:hover {
+      cursor: default;
+
+      svg {
+        scale: none;
+        fill: grey;
+      }
+    }
+  }
 }
 
 .icon,
