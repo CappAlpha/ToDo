@@ -2,12 +2,12 @@
   min-width: calc(50% - 6px);
   padding: 16px;
   border-radius: 8px;
-  border: 1px solid #333;
-  background: rgb(59, 61, 173);
+  border: 1px solid rgb(78, 168, 222);
+  background: rgb(0, 31, 62);
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   animation: ease-in .3s taskAnimation;
   transition: .3s ease-in;
 
@@ -17,7 +17,8 @@
   }
 
   &.checked {
-    background: rgb(21, 22, 77);
+    border: 1px solid rgba(78, 167, 222, 0.653);
+    background: rgb(0, 22, 45);
   }
 }
 
@@ -36,8 +37,19 @@
   &:hover {
     svg {
       scale: 1.2;
-      fill: grey;
+      fill: rgb(128, 128, 128);
     }
+  }
+}
+
+.title,
+.description {
+  padding: 4px;
+  transition: 0.3s ease-in;
+
+  &.change {
+    background-color: rgba(0, 55, 110, 0.609);
+    border-radius: 6px;
   }
 }
 
@@ -46,7 +58,7 @@
   font-weight: 700;
 
   &.checked {
-    color: #808080;
+    color: rgb(128, 128, 128);
   }
 
   &::placeholder {
@@ -59,7 +71,7 @@
 
   &.checked {
     text-decoration: line-through;
-    color: #808080;
+    color: rgb(128, 128, 128);
   }
 }
 
@@ -77,13 +89,13 @@
 
     svg {
       scale: 1.2;
-      fill: grey;
+      fill: rgb(128, 128, 128);
     }
   }
 
   &:disabled {
     svg {
-      fill: grey;
+      fill: rgb(128, 128, 128);
     }
 
     &:hover {
@@ -91,7 +103,7 @@
 
       svg {
         scale: none;
-        fill: grey;
+        fill: rgb(128, 128, 128);
       }
     }
   }

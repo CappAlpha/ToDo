@@ -57,7 +57,7 @@ export const Task: FC<Props> = ({ task }) => {
 			</div>
 			<input
 				ref={inputTitle}
-				className={cn(s.title, !active && s.checked)}
+				className={cn(s.title, !active && s.checked, change && s.change)}
 				type="title"
 				placeholder={title}
 				value={title}
@@ -70,7 +70,7 @@ export const Task: FC<Props> = ({ task }) => {
 			/>
 			<input
 				ref={inputDescription}
-				className={cn(s.description, !active && s.checked)}
+				className={cn(s.description, !active && s.checked, change && s.change)}
 				type="description"
 				placeholder={description}
 				value={description}
