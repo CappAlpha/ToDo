@@ -81,7 +81,6 @@ export const Task: FC<Props> = ({ task }) => {
 				onChange={() => setDescription(inputDescription.current?.value ?? description)}
 				disabled={!change}
 			/>
-
 			<button
 				className={s.button}
 				onClick={deleteTask}
