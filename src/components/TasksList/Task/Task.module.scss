@@ -1,0 +1,86 @@
+.task {
+  min-width: calc(50% - 6px);
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: rgb(59, 61, 173);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: ease-in .3s taskAnimation;
+  transition: .3s ease-in;
+
+  &.anim {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+
+  &.checked{
+    background: rgb(21, 22, 77);
+  }
+}
+
+.radio {
+  transition: .3s;
+
+  svg {
+    transition: .3s;
+  }
+
+  &:hover {
+    svg {
+      scale: 1.2;
+      fill: grey;
+    }
+  }
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+
+  &.checked {
+    color: #808080;
+  }
+}
+
+.description {
+  font-size: 16px;
+
+  &.checked {
+    text-decoration: line-through;
+    color: #808080;
+  }
+}
+
+.button {
+  width: fit-content;
+  margin-left: auto;
+  transition: .3s;
+
+  svg {
+    transition: .3s;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    svg {
+      scale: 1.2;
+      fill: grey;
+    }
+  }
+}
+
+@keyframes taskAnimation {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
