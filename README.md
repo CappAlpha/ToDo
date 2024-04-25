@@ -1,7 +1,7 @@
 React, TypeScript, Redux, vite, eslint, classnames
 
-###Launch project
+### Launch project
 - npm run dev
 
-#Host
+# Host
 https://cappalpha.github.io/ToDo/
