@@ -16,9 +16,14 @@
     transform: translateX(100px);
   }
 
-  &.checked{
+  &.checked {
     background: rgb(21, 22, 77);
   }
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
 }
 
 .radio {
@@ -42,6 +47,10 @@
 
   &.checked {
     color: #808080;
+  }
+
+  &::placeholder {
+    color: inherit;
   }
 }
 
@@ -71,6 +80,15 @@
       fill: grey;
     }
   }
+}
+
+.icon,
+.radio {
+  svg {
+    width: 19px !important;
+    height: 19px !important;
+  }
+
 }
 
 @keyframes taskAnimation {

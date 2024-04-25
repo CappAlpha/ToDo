@@ -16,7 +16,7 @@ export const tasksSlice = createSlice({
 	name: 'tasks',
 	initialState,
 	reducers: {
-		addTask: (state, action: PayloadAction<{ title: string; description: string }>) => {
+		addTask: (state, action: PayloadAction<Pick<Task, 'title' | 'description'>>) => {
 			const task: Task = {
 				id: Number(localStorage.getItem(LS_KEY_LAST_ID)) + 1,
 				title: action.payload.title,
@@ -29,17 +29,24 @@ export const tasksSlice = createSlice({
 		},
 		removeTask: (state, action: PayloadAction<Task>) => {
 			state.tasks = state.tasks.filter(
-				(task: Task) => task.id !== action.payload.id
+				({ id }) => id !== action.payload.id
 			);
-
+			localStorage.setItem(LS_KEY_TASKS, JSON.stringify(state.tasks));
+		},
+		changeTask: (state, action: PayloadAction<Pick<Task, 'id' | 'title' | 'description'>>) => {
+			state.tasks = state.tasks.map(
+				(task) => task.id === action.payload.id ?
+					{ ...task, title: action.payload.title, description: action.payload.description } :
+					task
+			);
 			localStorage.setItem(LS_KEY_TASKS, JSON.stringify(state.tasks));
 		},
 		setActive: (
 			state,
-			action: PayloadAction<{ id: number; active: boolean }>
+			action: PayloadAction<Pick<Task, 'id' | 'active'>>
 		) => {
 			state.tasks.filter(
-				(task: Task) => task.id === action.payload.id
+				({ id }) => id === action.payload.id
 			)[0].active = action.payload.active;
 			localStorage.setItem(LS_KEY_TASKS, JSON.stringify(state.tasks));
 		}

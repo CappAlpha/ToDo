@@ -5,7 +5,7 @@ import { Button } from 'antd';
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 
-interface TaskInput {
+export interface TaskInput {
 	taskTitle: string;
 	taskDescription: string;
 }

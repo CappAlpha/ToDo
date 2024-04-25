@@ -1,8 +1,8 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import s from './Task.module.scss';
 import { useActions } from '../../../hooks/useActions.ts';
 import { Task as TaskI } from '../../../entities/task.ts';
-import { CheckCircleFilled, CheckCircleOutlined, DeleteOutlined } from '@ant-design/icons';
+import { CheckCircleFilled, CheckCircleOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import cn from 'classnames';
 
 interface Props {
@@ -12,12 +12,20 @@ interface Props {
 const TIME_ANIMATION_MS = 300;
 
 export const Task: FC<Props> = ({ task }) => {
-	const { active: activeTask, title, description, id } = task;
-	const [active, setLocalActive] = useState(activeTask);
+	const { active: activeInit, title: titleInit, description: descriptionInit, id } = task;
+
+	const { removeTask, setActive, changeTask } = useActions();
+	const inputTitle = useRef<HTMLInputElement>(null);
+	const inputDescription = useRef<HTMLInputElement>(null);
+	const [active, setLocalActive] = useState(activeInit);
+	const [change, setChange] = useState(false);
 	const [deleteAnim, setDeleteAnim] = useState(false);
-	const { removeTask, setActive } = useActions();
+	const [title, setTitle] = useState(titleInit);
+	const [description, setDescription] = useState(descriptionInit)
 
 	const turnActive = () => setLocalActive((prev) => !prev);
+	const turnChange = () => setChange((prev) => !prev);
+
 	const deleteTask = () => {
 		setDeleteAnim(true);
 		setTimeout(() => {
@@ -26,28 +34,59 @@ export const Task: FC<Props> = ({ task }) => {
 	};
 
 	useEffect(() => {
-		setActive({ id: id, active: active })
-	}, [active]);
+		setActive({ id: id, active: active });
+		changeTask({ id: id, title: title, description: description })
+	}, [active, title, setTitle, description, setDescription]);
 
 	return (
 		<div className={cn(s.task, deleteAnim && s.anim, !active && s.checked)}>
-			<div>
-				{!active ?
-					<CheckCircleFilled className={s.radio} onClick={turnActive} /> :
-					<CheckCircleOutlined className={s.radio} onClick={turnActive} />
-				}
+			<div className={s.top}>
+				<div>
+					{!active ?
+						<CheckCircleFilled className={s.radio} onClick={turnActive} /> :
+						<CheckCircleOutlined className={s.radio} onClick={turnActive} />
+					}
+				</div>
+				<button
+					className={s.button}
+					onClick={turnChange}
+					disabled={!active}
+				>
+					<EditOutlined className={s.icon} />
+				</button>
 			</div>
-			<p className={cn(s.title, !active && s.checked)}>
-				{title}
-			</p>
-			<p className={cn(s.description, !active && s.checked)}>
-				{description}
-			</p>
+			<input
+				ref={inputTitle}
+				className={cn(s.title, !active && s.checked)}
+				type="title"
+				placeholder={title}
+				value={title}
+				onKeyDown={(e) => {
+					setTitle(inputTitle.current?.value ?? title);
+					e.key === 'Enter' && turnChange();
+				}}
+				onChange={() => setTitle(inputTitle.current?.value ?? title)}
+				disabled={!change}
+			/>
+			<input
+				ref={inputDescription}
+				className={cn(s.description, !active && s.checked)}
+				type="description"
+				placeholder={description}
+				value={description}
+				onKeyDown={(e) => {
+					setDescription(inputDescription.current?.value ?? description)
+					e.key === 'Enter' && turnChange();
+				}}
+				onChange={() => setDescription(inputDescription.current?.value ?? description)}
+				disabled={!change}
+			/>
+
 			<button
 				className={s.button}
 				onClick={deleteTask}
 			>
-				<DeleteOutlined />
+				<DeleteOutlined className={s.icon} />
 			</button>
 		</div>
 	);
